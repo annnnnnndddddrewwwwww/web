@@ -1,0 +1,1147 @@
+/* Nueva Paleta de colores: Negro, Blanco y Gris */
+:root {
+    --primary-color: #333333; /* Gris oscuro para botones, acentos */
+    --secondary-color: #555555; /* Gris medio para secundarios, hover */
+    --text-color: #1a1a1a; /* Negro muy oscuro para texto principal */
+    --light-text-color: #888888; /* Gris más claro para texto secundario */
+    --background-color: #f8f8f8; /* Blanco roto para fondo general */
+    --card-bg: #ffffff; /* Blanco puro para fondos de tarjetas */
+    --header-footer-bg: #1a1a1a; /* Negro muy oscuro para header/footer */
+    --accent-color: #666666; /* Un gris distinto para precios y elementos destacados */
+    --border-color: #e0e0e0; /* Gris claro para bordes */
+    --shadow-light: rgba(0, 0, 0, 0.05); /* Sombra más sutil */
+    --shadow-medium: rgba(0, 0, 0, 0.12); /* Sombra media */
+}
+
+/* Estilos Generales y Reseteo */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color); /* Por defecto, se ajusta a la nueva paleta */
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 3.2em;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #f8f8f8; /* Blanco roto para h1 en hero section */
+}
+
+h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+h3 {
+    font-size: 1.9em;
+    margin-bottom: 15px;
+    color: var(--text-color); /* Negro muy oscuro */
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.section-description {
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    color: var(--light-text-color);
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    border: none;
+    box-shadow: 0 4px 8px var(--shadow-light);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-medium);
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: #222222; /* Un poco más oscuro */
+}
+
+.btn.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn.secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-lg {
+    padding: 15px 35px;
+    font-size: 1.2em;
+}
+
+/* Precios */
+.price {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--accent-color); /* Usamos el color de acento gris */
+    margin-top: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+.price-small {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-top: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.price-big {
+    font-size: 2.8em;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+
+/* Header */
+header {
+    background-color: var(--header-footer-bg);
+    padding: 15px 0;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo .logo-img {
+    height: 45px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+.logo .logo-img:hover {
+    transform: scale(1.05);
+}
+
+.logo .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 30px;
+}
+
+header nav ul li a {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1em;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover::after,
+header nav ul li a.active::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero-section {
+    /* Mantenemos el fondo de imagen con un degradado de color para unificar con el nuevo tema */
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero-bg.jpg') no-repeat center center/cover; /* Reemplaza con tu imagen */
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+    box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+}
+
+.hero-section h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    color: #f8f8f8; /* Aseguramos que el h1 del hero sea blanco roto */
+}
+
+.hero-section .hero-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+}
+
+.hero-buttons .btn {
+    margin: 15px;
+    font-size: 1.2em;
+}
+
+/* Features Section */
+.features-section {
+    padding: 80px 0;
+    background-color: var(--background-color);
+    text-align: center;
+}
+
+.features-section .container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px var(--shadow-light);
+    flex: 1;
+    min-width: 320px;
+    max-width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px var(--shadow-medium);
+}
+
+.feature-card h2 {
+    font-size: 2em;
+    color: var(--primary-color); /* Aseguramos que el h2 sea el primary-color */
+    margin-bottom: 20px;
+}
+
+.feature-card p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+/* About Section */
+.about-section {
+    background-color: var(--header-footer-bg);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 2.8em;
+    color: white; /* Aseguramos que el h2 sea blanco */
+    margin-bottom: 25px;
+}
+
+.about-section p {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+}
+
+/* Generator Section & Providers Section (General Styling) */
+.generator-section, .providers-section, .contact-section {
+    padding: 80px 0;
+    background-color: var(--card-bg);
+}
+
+.generator-section h1, .providers-section h1, .contact-section h1 {
+    margin-bottom: 40px;
+    color: var(--header-footer-bg); /* O un color oscuro para el h1 en estas secciones */
+}
+
+/* IMAGEN DE EJEMPLO MÁS PEQUEÑA */
+.mockup-image {
+    max-width: 500px; /* Tamaño más pequeño */
+    height: auto;
+    display: block;
+    margin: 50px auto;
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+.mockup-image:hover {
+    transform: scale(1.01);
+}
+
+.info-grid {
+    display: flex;
+    gap: 40px;
+    margin: 50px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.info-block {
+    flex: 1;
+    min-width: 300px;
+    max-width: 48%;
+    background-color: var(--background-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.info-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.info-block h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.info-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-block ul li {
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+}
+
+.info-block ul li::before {
+    content: '✔';
+    color: #4CAF50; /* Verde más neutro */
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+
+.how-it-works {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.how-it-works li {
+    background-color: var(--background-color);
+    padding: 25px;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 3px 10px var(--shadow-light);
+    font-size: 1.15em;
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 70px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.how-it-works li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px var(--shadow-medium);
+}
+
+.how-it-works li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+
+.payment-options {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.payment-note {
+    font-size: 1.1em;
+    margin-top: 20px;
+    color: var(--light-text-color);
+}
+
+/* PayPal Button Styling */
+.paypal-button {
+    background-color: #ffc439; /* Color oficial de PayPal */
+    color: #1a1f2c; /* Color oficial de texto de PayPal */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none; /* Asegura que no se subraya */
+}
+
+.paypal-button img {
+    height: 24px;
+}
+
+.paypal-button:hover {
+    background-color: #e6b231;
+    transform: translateY(-2px);
+}
+
+.paypal-button-small {
+    background-color: #ffc439;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+.paypal-button-small img {
+    height: 20px;
+}
+.paypal-button-small:hover {
+    background-color: #e6b231;
+    transform: translateY(-2px);
+}
+
+
+.payment-info {
+    font-size: 0.95em;
+    color: var(--light-text-color);
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.02);
+    border-radius: 5px;
+}
+
+.payment-reminder {
+    font-size: 1em;
+    font-weight: 600;
+    color: #ff6347; /* Un rojo más anaranjado para la advertencia, que se integra mejor */
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background-color: #fff0f0; /* Fondo muy claro para destacar */
+    border: 1px solid #ff6347;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+
+/* Providers Specific */
+.pricing-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+.pricing-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    flex: 1;
+    min-width: 300px;
+    max-width: 48%;
+    box-shadow: 0 8px 25px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pricing-card.card-hover-effect:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.pricing-card h3 {
+    color: var(--primary-color);
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.pricing-card p {
+    font-size: 1.15em;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+/* Contact Section */
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px var(--shadow-light);
+}
+
+.contact-form .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.05em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Mantiene un toque de azul para el foco */
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button.btn {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.3em;
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.15em;
+    color: var(--light-text-color);
+}
+.contact-info a {
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+    background-color: var(--header-footer-bg);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    font-size: 0.9em;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+}
+
+footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+footer .logo.footer-logo .logo-img {
+    height: 55px;
+}
+
+.footer-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-nav ul li {
+    margin: 0 18px 10px 18px;
+}
+
+.footer-nav ul li a {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    font-size: 1.05em;
+    transition: color 0.3s ease;
+}
+
+.footer-nav ul li a:hover {
+    color: var(--secondary-color);
+}
+
+/* SE HA ELIMINADO EL ESTILO DE SOCIAL-ICONS */
+
+.copyright {
+    margin-top: 20px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Animaciones Sutiles (Fade In - requiere JS) */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    h1 {
+        font-size: 3em;
+    }
+    .hero-section {
+        min-height: 450px;
+        padding: 80px 20px;
+    }
+    .hero-section h1 {
+        font-size: 3.5em;
+    }
+    .hero-buttons .btn {
+        font-size: 1.1em;
+    }
+    .features-section .container,
+    .info-grid,
+    .pricing-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .feature-card, .info-block, .pricing-card {
+        max-width: 90%;
+        min-width: unset;
+    }
+    .how-it-works li {
+        padding-left: 60px;
+    }
+    .how-it-works li::before {
+        left: 15px;
+        width: 30px;
+        height: 30px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    header nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    header nav ul li {
+        margin: 0 8px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.8em;
+    }
+    .hero-section .hero-subtitle {
+        font-size: 1.2em;
+    }
+    .btn-lg {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+    h3 {
+        font-size: 1.6em;
+    }
+    .section-description {
+        font-size: 1em;
+    }
+    .price, .price-big {
+        font-size: 2em;
+    }
+
+    .mockup-image {
+        max-width: 90%; /* Ajuste para pantallas pequeñas */
+        margin: 30px auto;
+    }
+
+    .contact-form {
+        padding: 30px;
+    }
+    .contact-form label {
+        font-size: 1em;
+    }
+    .contact-form input, .contact-form textarea {
+        padding: 12px;
+        font-size: 1em;
+    }
+    .contact-form button.btn {
+        padding: 15px;
+        font-size: 1.2em;
+    }
+
+    footer .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .footer-nav ul {
+        margin-top: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-nav ul li {
+        margin: 5px 0;
+    }
+    /* SE HA ELIMINADO EL ESTILO DE SOCIAL-ICONS */
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .hero-section {
+        padding: 60px 15px;
+        min-height: 400px;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .hero-buttons .btn {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .feature-card, .info-block, .pricing-card {
+        padding: 25px;
+    }
+    .how-it-works li {
+        font-size: 1em;
+        padding-left: 50px;
+    }
+    .how-it-works li::before {
+        left: 10px;
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .paypal-button, .paypal-button-small {
+        width: 90%;
+        justify-content: center;
+        margin: 10px auto;
+    }
+}
+/* ... (Tu CSS existente) ... */
+
+/* Estilos de la nueva sección de productos en la página principal */
+.products-section {
+    padding: 80px 0;
+    background-color: var(--background-color);
+    text-align: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
+    gap: 30px;
+    margin-top: 50px;
+    justify-content: center; /* Centra las tarjetas si no llenan la fila */
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 25px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.product-image-small {
+    width: 150px; /* Tamaño más pequeño para las imágenes de producto */
+    height: 150px;
+    object-fit: contain; /* Asegura que la imagen no se recorte */
+    margin: 0 auto 20px auto;
+    border-radius: 8px; /* Pequeño borde redondeado */
+    background-color: #f0f0f0; /* Fondo claro para imágenes placeholder */
+    padding: 10px;
+}
+
+.product-card h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.product-description {
+    font-size: 1em;
+    color: var(--light-text-color);
+    margin-bottom: 20px;
+    flex-grow: 1; /* Permite que la descripción ocupe el espacio disponible */
+}
+
+.product-price {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.payment-reminder-small {
+    font-size: 0.85em;
+    color: #ff6347; /* Rojo para advertencia */
+    margin-bottom: 10px;
+}
+
+.delivery-note {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+    margin-top: 15px;
+    background-color: rgba(0,0,0,0.02);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Ajustes para el botón de PayPal en tarjetas de producto */
+.product-card .paypal-button {
+    width: 100%; /* El botón ocupa todo el ancho de la tarjeta */
+    justify-content: center; /* Centra el contenido del botón */
+    margin-top: 0; /* Elimina margen superior extra */
+}
+
+/* ... (Asegúrate de que tus media queries también se ajusten a estos nuevos elementos) ... */
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        max-width: 400px; /* Limita el ancho de las tarjetas */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+/* ... (Tu CSS existente) ... */
+
+/* Estilos para el Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija para cubrir toda la pantalla */
+    z-index: 2000; /* Por encima de todo lo demás */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilitar scroll si el contenido es demasiado grande */
+    background-color: rgba(0,0,0,0.7); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usar flexbox para centrar contenido */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    opacity: 0; /* Para la animación de fade */
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none; /* No interactuable cuando está oculto */
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all; /* Interactuable cuando está activo */
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    max-width: 550px; /* Ancho máximo del modal */
+    width: 90%;
+    transform: translateY(-50px); /* Para la animación */
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-button {
+    color: var(--light-text-color);
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+/* Reutilizando estilos de formulario existentes */
+.modal-content .form-group {
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.modal-content input[type="email"],
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content input[type="email"]:focus,
+.modal-content input[type="text"]:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.modal-content .btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Ajustes menores para las notas de entrega en tarjetas de producto */
+.delivery-note-small {
+    font-size: 0.8em;
+    color: var(--light-text-color);
+    margin-top: 10px;
+}
+
+.payment-reminder-small {
+    font-size: 0.8em;
+    color: #ff6347; /* Rojo para advertencia */
+    margin-bottom: 5px;
+}
+
+/* ... (Tu CSS existente) ... */
+
+/* Ajustes generales para todas las tarjetas de producto */
+/* ... (Tu CSS existente) ... */
+
+/* Ajustes generales para todas las tarjetas de producto */
+.product-grid {
+    display: grid;
+    /* Ajustado para 3 columnas en pantallas grandes, más compactas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Mantenemos minmax para que sean un poco flexibles, pero con un mínimo */
+    gap: 25px; /* Espacio entre tarjetas */
+    margin-top: 40px;
+    justify-content: center; /* Centra las tarjetas si no ocupan todo el ancho */
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 6px 18px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+    /* Nuevos estilos para un tamaño más consistente (aunque la cuadrícula ya ayuda) */
+    width: 100%; /* Asegura que la tarjeta ocupe el espacio de la columna */
+    max-width: 350px; /* Limita el ancho máximo para evitar que se estiren demasiado en columnas anchas */
+    margin-left: auto; /* Para centrar la tarjeta si su ancho es menor que la columna */
+    margin-right: auto; /* Para centrar la tarjeta si su ancho es menor que la columna */
+}
+
+/* ELIMINADAS: Todas las reglas CSS específicas para .product-card.featured-product */
+/* Esto incluye: grid-column, max-width, margin, padding, border, box-shadow */
+/* También las reglas para h2, .product-description, .product-price dentro de .featured-product */
+/* Y .product-image-large (porque ahora solo usaremos product-image-small) */
+
+/* El resto de los estilos de imágenes pequeñas (para todos los productos) */
+.product-image-small {
+    width: 100px; /* Tamaño consistente para todas las imágenes de producto */
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto 15px auto;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    padding: 8px;
+}
+
+/* ELIMINADO: .separator-or-spacer */
+
+/* Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        max-width: 350px; /* Limita el ancho de las tarjetas */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* No es necesario ajustar featured-product aquí si ya lo eliminamos */
+}
+
+/* ... (El resto de tus estilos, incluyendo los del modal) ... */

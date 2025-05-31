@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial=" initial-scale="1.0">
+    <title>Generador de Tickets - Cast Sneakers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="photo-output.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tickets.html">Generador de Tickets</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="ticket-generator" class="generator-section">
+            <div class="container">
+                <h1>Generador de Tickets de Envío</h1>
+                <p class="section-description">Crea tickets de envío profesionales y personalizados para tus ventas de Vinted. ¡Mejora la experiencia de tus compradores y profesionaliza tu negocio!</p>
+
+                <img src="ticket-example.jpg" alt="Ejemplo de Ticket Generado" class="mockup-image">
+
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h2>¿Por qué usarlo?</h2>
+                        <ul>
+                            <li>Mejora la imagen de tus envíos.</li>
+                            <li>Da un toque profesional a cada venta.</li>
+                            <li>Diferénciate de la competencia.</li>
+                            <li>Fácil de usar y personalizar.</li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h2>Características</h2>
+                        <ul>
+                            <li>Tickets 100% personalizados.</li>
+                            <li>Compatible con cualquier impresora.</li>
+                            <li>Diseño claro y atractivo.</li>
+                            <li>Acceso instantáneo tras la compra.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 style="text-align: center; margin-top: 60px; margin-bottom: 40px; color: var(--text-color);">Elige tu Plan de Acceso:</h2>
+
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150x150/e0e0e0/333333?text=7+días" alt="Generador 1 Semana" class="product-image-small">
+                        <h2>Acceso 1 Semana</h2>
+                        <p class="product-description">Ideal para pruebas o para necesidades puntuales. Accede al generador por 7 días consecutivos.</p>
+                        <p class="product-price">4.50€</p>
+                        <p class="payment-reminder-small">⚠️ Selecciona "Amigos y Familiares" en PayPal para evitar comisiones.</p>
+                        <button class="btn primary btn-lg open-modal-btn"
+                                data-product-name="Generador de Tickets - 1 Semana"
+                                data-product-price="4.50"
+                                data-paypal-url="https://www.paypal.me/castsneakers/4.50?locale.x=es_ES">
+                            Comprar 1 Semana
+                        </button>
+                        <p class="delivery-note-small">Serás dirigido a un formulario y luego a PayPal para el pago. El acceso se enviará a tu email.</p>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150x150/e0e0e0/333333?text=1+Mes" alt="Generador 1 Mes" class="product-image-small">
+                        <h2>Acceso 1 Mes</h2>
+                        <p class="product-description">Acceso completo al generador de tickets durante 30 días. Perfecto para un uso regular.</p>
+                        <p class="product-price">7€</p>
+                        <p class="payment-reminder-small">⚠️ Selecciona "Amigos y Familiares" en PayPal para evitar comisiones.</p>
+                        <button class="btn primary btn-lg open-modal-btn"
+                                data-product-name="Generador de Tickets - 1 Mes"
+                                data-product-price="7"
+                                data-paypal-url="https://www.paypal.me/castsneakers/7?locale.x=es_ES">
+                            Comprar 1 Mes
+                        </button>
+                        <p class="delivery-note-small">Serás dirigido a un formulario y luego a PayPal para el pago. El acceso se enviará a tu email.</p>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/150x150/e0e0e0/333333?text=Lifetime" alt="Generador Lifetime" class="product-image-small">
+                        <h2>Acceso Lifetime</h2>
+                        <p class="product-description">Acceso ilimitado y de por vida al generador de tickets, incluyendo futuras actualizaciones. ¡Una inversión para siempre!</p>
+                        <p class="product-price">15€</p>
+                        <p class="payment-reminder-small">⚠️ Selecciona "Amigos y Familiares" en PayPal para evitar comisiones.</p>
+                        <button class="btn primary btn-lg open-modal-btn"
+                                data-product-name="Generador de Tickets - Lifetime"
+                                data-product-price="15"
+                                data-paypal-url="https://www.paypal.me/castsneakers/15?locale.x=es_ES">
+                            Comprar Lifetime
+                        </button>
+                        <p class="delivery-note-small">Serás dirigido a un formulario y luego a PayPal para el pago. El acceso se enviará a tu email.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+                </a>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="tickets.html">Generador de Tickets</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="copyright">&copy; 2025 Cast Sneakers. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-product-title"></h2>
+            <p>Por favor, introduce tu correo electrónico y tu usuario de Discord para que podamos enviarte los detalles de tu compra una vez completado el pago en PayPal.</p>
+            <form id="purchaseForm" action="https://formspree.io/f/xpwrallz" method="POST">
+                <input type="hidden" name="product_name" id="form-product-name">
+                <input type="hidden" name="product_price" id="form-product-price">
+                <input type="hidden" name="paypal_url" id="form-paypal-url">
+
+                <div class="form-group">
+                    <label for="buyer_email">Tu Correo Electrónico:</label>
+                    <input type="email" id="buyer_email" name="_replyto" required placeholder="tu.email@ejemplo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="discord_username">Tu Usuario de Discord (ej. Usuario#1234):</label>
+                    <input type="text" id="discord_username" name="discord_username" placeholder="Usuario#1234" required>
+                </div>
+
+                <button type="submit" class="btn primary btn-lg">Continuar al Pago con PayPal</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

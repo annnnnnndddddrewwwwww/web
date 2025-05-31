@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores - Cast Sneakers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="photo-output.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tickets.html">Generador de Tickets</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="providers" class="providers-section">
+            <div class="container">
+                <h1>Nuestros Proveedores</h1>
+                <p class="section-description">Accede a una red exclusiva de proveedores verificados para potenciar tu negocio de reventa de zapatillas.</p>
+                <p>Para ver los packs de proveedores disponibles, por favor, visita nuestra <a href="index.html" style="color: var(--primary-color); text-decoration: underline;">página de inicio</a>.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+                </a>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="tickets.html">Generador de Tickets</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="copyright">&copy; 2025 Cast Sneakers. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-product-title"></h2>
+            <p>Por favor, introduce tu correo electrónico y tu usuario de Discord para que podamos enviarte los detalles de tu compra una vez completado el pago en PayPal.</p>
+            <form id="purchaseForm" action="https://formspree.io/f/YOUR_FORMSPREE_FORM_ID" method="POST">
+                <input type="hidden" name="product_name" id="form-product-name">
+                <input type="hidden" name="product_price" id="form-product-price">
+                <input type="hidden" name="paypal_url" id="form-paypal-url">
+
+                <div class="form-group">
+                    <label for="buyer_email">Tu Correo Electrónico:</label>
+                    <input type="email" id="buyer_email" name="_replyto" required placeholder="tu.email@ejemplo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="discord_username">Tu Usuario de Discord (ej. Usuario#1234):</label>
+                    <input type="text" id="discord_username" name="discord_username" placeholder="Usuario#1234" required>
+                </div>
+
+                <button type="submit" class="btn primary btn-lg">Continuar al Pago con PayPal</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

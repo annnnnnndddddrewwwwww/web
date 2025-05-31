@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Cast Sneakers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="photo-output.png" type="image/png">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="tickets.html">Generador de Tickets</a></li>
+                    <li><a href="providers.html">Proveedores</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h1>Contáctanos</h1>
+                <p class="section-description">¿Tienes preguntas, sugerencias o necesitas ayuda? Rellena el formulario o contáctanos directamente. ¡Estamos aquí para ayudarte!</p>
+                
+                <form action="https://formspree.io/f/xpwrallz" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" name="name" required placeholder="Tu nombre completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="_replyto" required placeholder="tu.email@ejemplo.com"> </div>
+
+                    <div class="form-group">
+                        <label for="subject">Asunto:</label>
+                        <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensaje:</label>
+                        <textarea id="message" name="message" rows="7" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn primary btn-lg">Enviar Mensaje</button>
+                </form>
+                <p class="contact-info">O si lo prefieres, escríbenos directamente a: <a href="mailto:info@castsneakers.com">info@castsneakers.com</a></p>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="logo footer-logo">
+                    <img src="photo-output.png" alt="Cast Sneakers Logo" class="logo-img">
+                </a>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="tickets.html">Generador de Tickets</a></li>
+                        <li><a href="providers.html">Proveedores</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#">Aviso Legal</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </nav>
+                </div>
+            <p class="copyright">&copy; 2025 Cast Sneakers. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
