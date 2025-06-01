@@ -114,11 +114,11 @@ class KeyGeneratorApp(ctk.CTk):
 
         # Variable para la clave seleccionada en la pestaña de gestión
         self.selected_key_data = None
-        
+
         # Cargar las claves al iniciar la aplicación en la pestaña de gestión
         # Esto asegura que la lista se cargue al inicio si la pestaña de gestión es la predeterminada
         self.load_existing_keys()
-        
+
     def on_tab_changed_by_command(self, selected_tab_name):
         """Callback que se ejecuta cuando se cambia de pestaña."""
         if selected_tab_name == "Gestionar Claves":
@@ -224,7 +224,7 @@ class KeyGeneratorApp(ctk.CTk):
         # Limpiar widgets existentes en el scrollable frame
         for widget in self.keys_list_frame.winfo_children():
             widget.destroy()
-        
+
         self.key_widgets = [] # Reiniciar la lista de referencias de widgets
         self.selected_key_data = None
         self.selected_key_label.configure(text="")
@@ -266,11 +266,11 @@ class KeyGeneratorApp(ctk.CTk):
             key_label.grid(row=0, column=0, sticky="w")
 
             select_button = ctk.CTkButton(key_frame, text="Seleccionar", width=80,
-                                          command=lambda k=key_data: self.select_key_for_edit(k))
+                                        command=lambda k=key_data: self.select_key_for_edit(k))
             select_button.grid(row=0, column=1, padx=5, sticky="e")
 
             self.key_widgets.append((key_frame, key_label, select_button))
-        
+
         self.status_label_manage.configure(text="") # Limpiar el estado de gestión
 
     def select_key_for_edit(self, key_data):
@@ -345,7 +345,7 @@ def generate_key_cli(product_name, buyer_email, discord_username, api_key_from_w
     # Puedes ajustar la duración de la clave generada automáticamente aquí.
     # Por ejemplo, 30 días por defecto para las compras automáticas.
     duration_days = 30
-    
+
     new_key_string = str(uuid.uuid4())
     expiration_date = datetime.datetime.now() + datetime.timedelta(days=duration_days)
     expiration_str = expiration_date.strftime('%Y-%m-%d %H:%M:%S')
