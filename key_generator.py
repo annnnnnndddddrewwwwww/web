@@ -16,7 +16,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # --- URL del Servidor Backend ---
 # ¡IMPORTANTE! DEBES CAMBIAR ESTA URL si tu servidor no está en la misma máquina o usa otro puerto.
 # Por ejemplo: "http://tu_ip_publica:5000"
-SERVER_URL = "https://cast-sneakers-backend.onrender.com"
+SERVER_URL = "https://web-wtrq.onrender.com"
 
 # --- Clave de API para proteger las operaciones de escritura (Generador) ---
 # DEBE COINCIDIR CON LA API_KEY EN backend_server.py

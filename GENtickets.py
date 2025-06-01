@@ -86,7 +86,7 @@ SENDER_PASSWORD = "groi vvdx msrh rkma" # ¡CÁMBIAME! Tu contraseña de aplicac
 # --- URL del Servidor Backend ---
 # ¡IMPORTANTE! Si tu servidor Flask no está en la misma máquina o usa otro puerto,
 # DEBES cambiar esta URL. Por ejemplo: "http://tu_ip_publica:5000"
-SERVER_URL = "https://cast-sneakers-backend.onrender.com"
+SERVER_URL = "https://web-wtrq.onrender.com"
 
 # --- Funciones de Gestión de Claves (Ahora interactúan con el backend) ---
 def validate_key(input_key):
