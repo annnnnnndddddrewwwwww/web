@@ -34,74 +34,79 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Lógica del Modal de Compra
     const purchaseModal = document.getElementById('purchaseModal');
-    const closeButton = document.querySelector('.modal .close-button');
-    const openModalButtons = document.querySelectorAll('.open-modal-btn');
-    const modalProductTitle = document.getElementById('modal-product-title');
+    const closeButton = document.querySelector('.close-button');
+    const purchaseForm = document.getElementById('purchaseForm');
     const formProductName = document.getElementById('form-product-name');
     const formProductPrice = document.getElementById('form-product-price');
-    const formPaypalUrl = document.getElementById('form-paypal-url');
-    const purchaseForm = document.getElementById('purchaseForm');
+    const formPaypalUrl = document.getElementById('form-paypal-url'); // <-- Contiene la URL de PayPal
 
-    openModalButtons.forEach(button => {
+    // Abre el modal al hacer clic en "Comprar"
+    document.querySelectorAll('.btn-buy').forEach(button => {
         button.addEventListener('click', function() {
-            const productName = this.dataset.productName;
-            const productPrice = this.dataset.productPrice;
-            const paypalUrl = this.dataset.paypalUrl;
+            const productCard = this.closest('.product-card');
+            const productName = productCard.dataset.name;
+            const productPrice = productCard.dataset.price;
+            const paypalUrl = this.dataset.paypal_url; // Obtener la URL de PayPal del botón (asegúrate de que el data-attribute sea 'data-paypal-url' en HTML)
 
-            modalProductTitle.textContent = productName;
+            document.getElementById('modal-product-title').textContent = productName;
             formProductName.value = productName;
             formProductPrice.value = productPrice;
-            formPaypalUrl.value = paypalUrl;
+            formPaypalUrl.value = paypalUrl; // Asignar la URL de PayPal al input oculto
 
             purchaseModal.classList.add('active');
         });
     });
 
+    // Cierra el modal
     closeButton.addEventListener('click', function() {
         purchaseModal.classList.remove('active');
-        // Limpiar el formulario al cerrar si es necesario
-        purchaseForm.reset();
+        purchaseForm.reset(); // Opcional: Limpiar el formulario al cerrar el modal
     });
 
-    // Cerrar modal al hacer clic fuera del contenido
+    // Cierra el modal al hacer clic fuera de su contenido
     window.addEventListener('click', function(event) {
         if (event.target === purchaseModal) {
             purchaseModal.classList.remove('active');
-            purchaseForm.reset();
+            purchaseForm.reset(); // Opcional: Limpiar el formulario al cerrar el modal
         }
     });
 
-    // Manejar el envío del formulario del modal
-    purchaseForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Previene el envío estándar del formulario
+    /*
+    // --- ESTE BLOQUE SE COMENTA/ELIMINA ---
+    // La lógica de envío del formulario ahora será manejada directamente por la acción del formulario HTML.
+    // El formulario se enviará al backend, y el backend se encargará de redirigir al usuario a la URL de PayPal.
+    purchaseForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Esto ya no es necesario si el formulario se envía directamente
 
-        const formAction = this.action;
-        const formData = new FormData(this);
+        const formData = new FormData(purchaseForm);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            data[key] = value;
+        }
 
-        fetch(formAction, {
+        // Esta petición fetch ya no es necesaria y causaba el error CORS
+        fetch('https://cast-sneakers-backend1.onrender.com/webhook/purchase', {
             method: 'POST',
-            body: formData,
             headers: {
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
         .then(response => {
-            console.log('Respuesta cruda de Formspree:', response); // <-- Añadido para depuración
+            console.log('Respuesta del backend:', response);
             if (response.ok) {
                 console.log('Formulario enviado a Formspree con éxito!');
-                // Ahora, redirigir al usuario a PayPal
                 const paypalRedirectUrl = formPaypalUrl.value;
                 window.location.href = paypalRedirectUrl;
 
                 purchaseModal.classList.remove('active');
                 purchaseForm.reset();
             } else {
-                // Intenta obtener más detalles del error si la respuesta no es 200 OK
                 response.json().then(data => {
-                    console.error('Error al enviar el formulario a Formspree. Detalles:', data);
+                    console.error('Error al enviar el formulario. Detalles:', data);
                     alert('Hubo un error al procesar tu solicitud: ' + (data.error || 'Por favor, inténtalo de nuevo. Revisa la consola para más información.'));
                 }).catch(() => {
-                    console.error('Error al enviar el formulario a Formspree. No se pudieron obtener detalles de la respuesta JSON.');
+                    console.error('Error al enviar el formulario. No se pudieron obtener detalles de la respuesta JSON.');
                     alert('Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo. Revisa la consola para más información.');
                 });
             }
@@ -111,4 +116,5 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('¡ERROR DE RED! Por favor, verifica tu conexión a internet. Si el problema persiste, contacta con soporte. Revisa la consola del navegador (F12 > Consola) para más detalles.');
         });
     });
+    */
 });

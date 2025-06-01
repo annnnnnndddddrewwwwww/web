@@ -1,107 +1,111 @@
-# backend_webhook.py
-
-# --- IMPORTS ---
 import os
 import subprocess
-from flask import Flask, request, jsonify
-import logging # Importa el módulo de logging
+from flask import Flask, request, jsonify, redirect
+from flask_cors import CORS # ¡Nuevo! Para manejar las cabeceras CORS
 
-# Configura el logger para que se muestren mensajes INFO y superiores
-logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
+CORS(app) # Habilita CORS para todas las rutas de tu aplicación Flask. Esto es necesario
+          # si el formulario se envía directamente desde tu dominio web al backend.
 
-# --- APP CONFIGURATION ---
+# Render asigna un puerto a través de la variable de entorno PORT
+port = int(os.environ.get("PORT", 10000))
 
-# Configura esto para que coincida con tu clave en key_generator.py
-# ES CRUCIAL QUE ESTA CLAVE SEA LA MISMA en key_generator.py Y en las Variables de Entorno de Render.
-# Si vas a usar variables de entorno en Render (lo más seguro), asegúrate de que el nombre de la KEY
-# en Render sea "KEY_GENERATOR_API_KEY".
-# El segundo argumento de .get() es un valor por defecto si la variable de entorno no se encuentra (útil para pruebas locales).
-KEY_GENERATOR_API_KEY = os.environ.get("KEY_GENERATOR_API_KEY", "MiClaveSuperSecretaParaCastSneakers_2025!XYZ789")
-# Si decidiste usar otra clave, reemplaza "MiClaveSuperSecretaParaCastSneakers_2025!XYZ789" con la tuya.
-
-
-# --- ROUTES ---
-
+# --- Ruta para el webhook de Formspree (Se mantiene por si el usuario aún lo usa o para compatibilidad) ---
+# Si decides que tu formulario HTML ya NO usa Formspree, esta ruta podría volverse obsoleta.
 @app.route('/webhook/purchase', methods=['POST'])
-def handle_purchase_webhook():
-    """
-    Maneja las peticiones POST del formulario de compra de la web.
-    Recibe los datos del formulario (no JSON) y llama a key_generator.py.
-    """
-    # Obtén los datos del formulario (form-data)
+def handle_formspree_webhook():
+    print("INFO:backend_webhook:Received webhook data from Formspree:", request.form)
+    
+    # Formspree envía datos como 'application/x-www-form-urlencoded', no JSON
     product_name = request.form.get('product_name')
-    buyer_email = request.form.get('_replyto') # El nombre del campo en tu HTML es _replyto
+    buyer_email = request.form.get('_replyto') # Formspree usa _replyto para el email
     discord_username = request.form.get('discord_username')
-    paypal_url = request.form.get('paypal_url') # Captura la URL de PayPal
+    paypal_url = request.form.get('paypal_url') # Aunque Formspree maneje la redirección, el dato llega aquí
 
-    # Verifica que los campos necesarios estén presentes
     if not all([product_name, buyer_email, discord_username, paypal_url]):
-        app.logger.error("Missing required fields: product_name, buyer_email, discord_username, or paypal_url")
-        return jsonify({"status": "error", "message": "Missing required form fields"}), 400
-
-    app.logger.info(f"Received webhook data: Product={product_name}, Email={buyer_email}, Discord={discord_username}, PayPal_URL={paypal_url}")
-
-    # Construye la ruta al script key_generator.py
-    # os.path.dirname(os.path.abspath(__file__)) obtiene el directorio del script actual.
-    key_generator_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'key_generator.py')
-
-    # Prepara el comando para ejecutar key_generator.py como un subproceso
-    command = [
-        "python",
-        key_generator_path,
-        "--action", "generate_for_purchase",
-        "--product_name", product_name,
-        "--buyer_email", buyer_email,
-        "--discord_username", discord_username,
-        "--api_key", KEY_GENERATOR_API_KEY # Pasa la API Key como argumento
-    ]
-
-    # Para depuración: registra el comando completo que se ejecutará
-    app.logger.info(f"Executing key generator command: {' '.join(command)}")
+        print("ERROR:backend_webhook:Missing data in Formspree webhook.")
+        return jsonify({"status": "error", "message": "Missing data"}), 400
 
     try:
-        # Ejecuta el script key_generator.py
-        # capture_output=True: captura stdout y stderr
-        # text=True: decodifica stdout/stderr como texto
-        # check=True: si el proceso devuelve un código de salida distinto de 0, lanza CalledProcessError
-        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        # Aquí la clave se sigue generando ANTES del pago (por el webhook de Formspree)
+        key_generator_command = [
+            "python",
+            "key_generator.py",
+            "--action", "generate_for_purchase",
+            "--product_name", product_name,
+            "--buyer_email", buyer_email,
+            "--discord_username", discord_username,
+            "--api_key", "MiClaveSuperSecretaParaCastSneakers_2025!XYZ789" # ¡IMPORTANTE: Asegúrate de que coincida con key_generator.py y backend_server.py!
+        ]
+        
+        process = subprocess.run(key_generator_command, capture_output=True, text=True, check=True)
+        print("INFO:backend_webhook:key_generator.py stdout:", process.stdout)
+        print("INFO:backend_webhook:key_generator.py stderr:", process.stderr)
 
-        # Captura y registra la salida estándar y de error del script key_generator.py
-        app.logger.info(f"key_generator.py stdout: {result.stdout}")
-        if result.stderr:
-            app.logger.error(f"key_generator.py stderr: {result.stderr}")
-
-        # Si el script se ejecutó con éxito (código de salida 0)
-        if result.returncode == 0:
-            return jsonify({"status": "success", "message": "Key generation initiated successfully", "redirect_url": paypal_url}), 200
+        if "Key generated successfully" in process.stdout:
+            # Si el webhook funciona, Formspree (si sigue activo para este formulario)
+            # manejará la redirección del usuario. Esta parte solo responde a Formspree.
+            return jsonify({"status": "success", "message": "Webhook processed"}), 200
         else:
-            # Si el script devolvió un error
-            app.logger.error(f"key_generator.py failed with exit code {result.returncode}. Stderr: {result.stderr}")
-            return jsonify({"status": "error", "message": "Key generation failed", "details": result.stderr, "redirect_url": paypal_url}), 500
+            print("ERROR:backend_webhook:Key generation failed from Formspree webhook.")
+            return jsonify({"status": "error", "message": "Key generation failed"}), 500
 
     except subprocess.CalledProcessError as e:
-        # Se lanza si check=True y el subproceso devuelve un error
-        app.logger.error(f"Error executing key_generator.py (CalledProcessError): {e.stderr}")
-        return jsonify({"status": "error", "message": "Server error during key generation", "details": e.stderr, "redirect_url": paypal_url}), 500
-    except FileNotFoundError:
-        # Se lanza si 'python' o 'key_generator.py' no se encuentran
-        app.logger.error(f"key_generator.py not found at {key_generator_path}. Check file path.")
-        return jsonify({"status": "error", "message": "Key generator script not found on server", "redirect_url": paypal_url}), 500
+        print(f"ERROR:backend_webhook:Key generator command failed from Formspree webhook: {e}")
+        print(f"Stderr: {e.stderr}")
+        return jsonify({"status": "error", "message": "Key generator command failed"}), 500
     except Exception as e:
-        # Para cualquier otro error inesperado
-        app.logger.error(f"An unexpected error occurred in webhook handler: {e}")
-        return jsonify({"status": "error", "message": "An unexpected server error occurred", "details": str(e), "redirect_url": paypal_url}), 500
+        print(f"ERROR:backend_webhook:Unhandled exception in Formspree webhook: {e}")
+        return jsonify({"status": "error", "message": "Internal server error"}), 500
 
+# --- NUEVA RUTA PARA PROCESAR DIRECTAMENTE EL FORMULARIO DESDE EL NAVEGADOR ---
+# Esta ruta recibirá directamente las peticiones POST de tu HTML.
+@app.route('/process_purchase', methods=['POST'])
+def process_purchase_form():
+    print("INFO:backend_webhook:Received direct form submission:", request.form)
 
-# Ruta raíz simple para que Render.com no dé 404 en las comprobaciones de salud iniciales
-@app.route('/', methods=['GET'])
-def home():
-    return "Cast Sneakers Webhook Service is running!", 200
+    # Los datos del formulario HTML se acceden a través de request.form
+    product_name = request.form.get('product_name')
+    buyer_email = request.form.get('_replyto') # Usa '_replyto' ya que así se llama en tu HTML
+    discord_username = request.form.get('discord_username')
+    paypal_url = request.form.get('paypal_url')
 
+    if not all([product_name, buyer_email, discord_username, paypal_url]):
+        print("ERROR:backend_webhook:Missing data in direct form submission.")
+        return "Datos incompletos. Por favor, vuelve atrás y rellena todos los campos.", 400
 
-# --- MAIN EXECUTION BLOCK ---
+    try:
+        # Aquí la clave se sigue generando ANTES del pago
+        # porque esta ruta se activa cuando el usuario hace clic en "Continuar al Pago".
+        key_generator_command = [
+            "python",
+            "key_generator.py",
+            "--action", "generate_for_purchase",
+            "--product_name", product_name,
+            "--buyer_email", buyer_email,
+            "--discord_username", discord_username,
+            "--api_key", "MiClaveSuperSecretaParaCastSneakers_2025!XYZ789" # ¡IMPORTANTE: Asegúrate de que coincida!
+        ]
+        
+        process = subprocess.run(key_generator_command, capture_output=True, text=True, check=True)
+        print("INFO:backend_webhook:key_generator.py stdout from direct form:", process.stdout)
+        print("INFO:backend_webhook:key_generator.py stderr from direct form:", process.stderr)
+
+        if "Key generated successfully" in process.stdout:
+            # Si la clave se genera, redirige al usuario a PayPal
+            print(f"INFO:backend_webhook:Redirecting to PayPal: {paypal_url}")
+            return redirect(paypal_url) # ¡Esto redirige el navegador del usuario a la URL de PayPal!
+        else:
+            print("ERROR:backend_webhook:Key generation failed for direct form submission.")
+            return "Error al generar la clave. Por favor, inténtalo de nuevo.", 500
+
+    except subprocess.CalledProcessError as e:
+        print(f"ERROR:backend_webhook:Key generator command failed for direct form: {e}")
+        print(f"Stderr: {e.stderr}")
+        return "Error interno al procesar la solicitud.", 500
+    except Exception as e:
+        print(f"ERROR:backend_webhook:Unhandled exception in direct form submission: {e}")
+        return "Error interno inesperado.", 500
+
 if __name__ == '__main__':
-    # Cuando se ejecuta localmente, usa debug=True para más información
-    # En Render, el puerto será proporcionado por la variable de entorno PORT
-    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
