@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("¡script.js cargado y DOM listo!"); // <-- ¡Añade esta línea!
     // Smooth scrolling for navigation links (reutilizado)
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
