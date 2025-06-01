@@ -9,7 +9,79 @@ import customtkinter as ctk
 import requests # Nuevo: Para hacer peticiones HTTP al servidor backend
 import argparse
 import sys
+# Añade esto al inicio de tu archivo key_generator.py con tus otras importaciones
+import argparse # Nueva importación
 
+# --- Funciones de Gestión de Claves (Ahora interactúan con el backend) ---
+# ... (todo el código que ya tienes para load_keys_from_server, add_key_to_server, etc.) ...
+
+# --- CLASE DEL GENERADOR Y GESTOR DE CLAVES ---
+# ... (todo el código de tu clase KeyGeneratorApp) ...
+
+# --- Lógica para la ejecución desde línea de comandos (NUEVO) ---
+def generate_key_cli(product_name, buyer_email, discord_username, api_key_from_webhook):
+    """
+    Genera una clave y la añade al servidor, diseñada para ser llamada desde la línea de comandos.
+    """
+    # Verifica que la API_KEY recibida del webhook coincida con la API_KEY interna
+    if api_key_from_webhook != API_KEY:
+        print("Error: API Key mismatch or invalid.")
+        return False, "API Key mismatch or invalid."
+
+    # Puedes ajustar la duración de la clave generada automáticamente aquí.
+    # Por ejemplo, 30 días por defecto para las compras automáticas.
+    duration_days = 30
+    
+    new_key_string = str(uuid.uuid4())
+    expiration_date = datetime.datetime.now() + datetime.timedelta(days=duration_days)
+    expiration_str = expiration_date.strftime('%Y-%m-%d %H:%M:%S')
+
+    # Añadir la clave al servidor
+    response_data = add_key_to_server(new_key_string, expiration_str)
+
+    if response_data:
+        print(f"Key generated successfully for purchase: {new_key_string}")
+        print(f"Details: Product='{product_name}', Email='{buyer_email}', Discord='{discord_username}', Expires='{expiration_str}'")
+        return True, f"Key generated: {new_key_string}"
+    else:
+        print("Error: Failed to save key to server from webhook.")
+        return False, "Failed to save key to server from webhook."
+
+# --- Bloque principal de ejecución del script (MODIFICADO) ---
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Key Generator and Manager for Cast_Sneakers")
+    parser.add_argument("--action", help="Action to perform: 'generate_for_purchase' or 'run_gui'")
+    parser.add_argument("--product_name", help="Product name for key generation (CLI only)")
+    parser.add_argument("--buyer_email", help="Buyer email for key generation (CLI only)")
+    parser.add_argument("--discord_username", help="Discord username for key generation (CLI only)")
+    parser.add_argument("--api_key", help="API Key for secure CLI operations")
+
+    args = parser.parse_args()
+
+    if args.action == "generate_for_purchase":
+        if not all([args.product_name, args.buyer_email, args.discord_username, args.api_key]):
+            print("Error: Missing arguments for 'generate_for_purchase' action.")
+            parser.print_help()
+        else:
+            # Aquí es donde se llama la función generate_key_cli
+            success, message = generate_key_cli(
+                args.product_name,
+                args.buyer_email,
+                args.discord_username,
+                args.api_key
+            )
+            if not success:
+                print(f"CLI Key Generation failed: {message}")
+    elif args.action == "run_gui":
+        app = KeyGeneratorApp()
+        app.mainloop()
+    elif not args.action and (not args.product_name and not args.buyer_email and not args.discord_username and not args.api_key):
+        # Si no se pasa ninguna acción y no hay argumentos de CLI, ejecuta la GUI por defecto
+        app = KeyGeneratorApp()
+        app.mainloop()
+    else:
+        print("Error: Invalid action or arguments provided.")
+        parser.print_help()
 
 # --- Rutas de las Carpetas (relativas al script del generador de claves) ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
